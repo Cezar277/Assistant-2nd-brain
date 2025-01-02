@@ -1,0 +1,51 @@
+{
+    "name": "mon_appli",
+    "version": "1.0.0",
+    "description": "Une application Electron de base.",
+    "main": "main.js",
+    "scripts": {
+        "dev": "DEBUG=electron:* electron .",
+        "dev:win": "electron . --no-sandbox",
+        "dev:armor": "DEBUG=electron:* electron . --no-sandbox",
+        "start": "electron .",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "package": "electron-forge package",
+        "build": "npm run package"
+    },
+    "devDependencies": {
+        "@electron-forge/cli": "^7.5.0",
+        "@electron-forge/maker-deb": "^7.5.0",
+        "@electron-forge/maker-rpm": "^7.5.0",
+        "@electron-forge/maker-squirrel": "^7.5.0",
+        "@electron-forge/maker-zip": "^7.5.0",
+        "@electron-forge/plugin-auto-unpack-natives": "^7.5.0",
+        "@electron-forge/plugin-fuses": "^7.5.0",
+        "@electron/fuses": "^1.8.0",
+        "concurrently": "^8.0.1",
+        "electron": "^23.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/#"
+    },
+    "keywords": [
+        "electron",
+        "quickstart",
+        "boilerplate",
+        "beginner"
+    ],
+    "author": "Votre Nom",
+    "license": "#",
+    "bugs": {
+        "url": "https://github.com/#"
+    },
+    "homepage": "https://github.com/Andaroth/#",
+    "dependencies": {
+        "axios": "^1.6.2",
+        "axios-cookiejar-support": "^5.0.5",
+        "electron-prompt": "^1.7.0",
+        "electron-squirrel-startup": "^1.0.1",
+        "express": "^4.21.2",
+        "tough-cookie": "^5.0.0"
+    }
+}

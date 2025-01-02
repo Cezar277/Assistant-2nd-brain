@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="todolist.css">
+</head>
+<body>
+    <button id="add-task-button">Ajouter une tâche</button>
+
+    <ul id="todo-list"></ul>
+
+    <!-- Popup d'ajout de tâche -->
+    <div id="add-task-popup" class="popup">
+        <div class="popup-content">
+            <h2>Ajouter une tâche</h2>
+            <form id="task-form">
+                <input type="text" id="task-name" placeholder="Nom de la tâche" required>
+                <textarea id="task-description" placeholder="Description"></textarea>
+                <select id="task-priority">
+                    <option value="inutile">Inutile</option>
+                    <option value="important">Important</option>
+                    <option value="super-important">Super Important</option>
+                </select>
+                <input type="date" id="task-date" required>
+                <button type="submit">Valider</button>
+            </form>
+            <button id="close-add-popup">Fermer</button>
+        </div>
+    </div>
+
+    <!-- Popup de détails -->
+    <div id="task-details-popup" class="popup">
+        <div class="popup-content">
+            <h2 id="details-title"></h2>
+            <p id="details-description"></p>
+            <p id="details-priority"></p>
+            <p id="details-date"></p>
+            <div class="popup-buttons">
+                <button id="validate-task"><i class="fas fa-check"></i></button>
+                <button id="edit-task"><i class="fas fa-edit"></i></button>
+                <button id="delete-task"><i class="fas fa-trash"></i></button>
+                <button id="close-details-popup"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="todolist.js"></script>
+</body>
+</html>

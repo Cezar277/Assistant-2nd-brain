@@ -1,0 +1,40 @@
+{
+  "availableAIs": [
+    {
+      "id": 1,
+      "label": "ChatGPT",
+      "url": "https://chat.openai.com",
+      "available": true
+    },
+    {
+      "id": 2,
+      "label": "Copilot",
+      "url": "https://copilot.microsoft.com/",
+      "available": true
+    },
+    {
+      "id": 3,
+      "label": "MistralAI",
+      "url": "https://chat.mistral.ai/chat",
+      "available": true
+    },
+    {
+      "label": "Copilot Pro",
+      "url": "https://copilot.cloud.microsoft",
+      "available": false,
+      "id": 4
+    },
+    {
+      "label": "Deepseek",
+      "url": "chat.deepseek.com",
+      "available": false,
+      "id": 5
+    },
+    {
+      "label": "Deepseek V2",
+      "url": "https://chat.deepseek.com",
+      "available": true,
+      "id": 6
+    }
+  ]
+}

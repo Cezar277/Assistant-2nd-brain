@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1abc9c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .ia-list {
+            margin-top: 20px;
+        }
+
+        .ia-item {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .ia-item:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Choisissez une IA</h1>
+        <div class="ia-list">
+            <button class="ia-item" data-id="1">ChatGPT</button>
+            <button class="ia-item" data-id="2">Copilot</button>
+            <button class="ia-item" data-id="3">MistralAI</button>
+            <button class="ia-item" data-id="4">Copilot Pro</button>
+            <button class="ia-item" data-id="5">Deepseek</button>
+            <button class="ia-item" data-id="6">Deepseek V2</button>
+        </div>
+    </div>
+
+    <script>
+        const settings = {
+            "availableAIs": [
+                { "id": 1, "label": "ChatGPT", "url": "https://chat.openai.com", "available": true },
+                { "id": 2, "label": "Copilot", "url": "https://copilot.microsoft.com/", "available": true },
+                { "id": 3, "label": "MistralAI", "url": "https://chat.mistral.ai/chat", "available": true },
+                { "id": 4, "label": "Copilot Pro", "url": "https://copilot.cloud.microsoft", "available": false },
+                { "id": 5, "label": "Deepseek", "url": "https://chat.deepseek.com", "available": false },
+                { "id": 6, "label": "Deepseek V2", "url": "https://chat.deepseek.com", "available": true }
+            ]
+        };
+
+        document.querySelectorAll('.ia-item').forEach((button) => {
+            button.addEventListener('click', () => {
+                const iaId = button.getAttribute('data-id');
+                const ia = settings.availableAIs.find(ai => ai.id == iaId);
+                if (ia && ia.available) {
+                    window.location.href = `index.html?ia=${iaId}`; // Redirige vers index.html avec le paramètre de requête
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

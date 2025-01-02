@@ -1,0 +1,107 @@
+/* sidebar.css */
+:root {
+  --primary-text: #d1d5db;
+  --background: #343541;
+  --surface: #444654;
+  --accent: rgba(16, 163, 127);
+  --hover: hsla(240, 9%, 59%, 0.1);
+  --border: rgb(64, 65, 79);
+}
+
+/* Barre latérale */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: var(--surface);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.sidebar.collapsed {
+  width: 50px;
+}
+
+.sidebar-toggle {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.sidebar-toggle:hover {
+  background-color: var(--hover);
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.tab {
+  background-color: var(--surface);
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tab:hover {
+  background-color: var(--hover);
+}
+
+.tab span {
+  white-space: nowrap;
+}
+
+.tab.collapsed span {
+  display: none;
+}
+
+.content {
+  flex: 1;
+  padding: 10px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.ia-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ia-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: var(--surface);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ia-item:hover {
+  background-color: var(--hover);
+}

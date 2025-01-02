@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barre latérale</title>
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="tabs">
+      <button class="tab" data-tab="ia">IA</button>
+      <button class="tab" data-tab="agenda">Agenda</button>
+      <button class="tab" data-tab="creer">Créer</button>
+    </div>
+    <div class="content">
+      <div id="ia" class="tab-content active">
+        <!-- Icônes des IA -->
+        <div class="ia-list">
+          <!-- Les icônes seront ajoutées dynamiquement ici -->
+        </div>
+      </div>
+      <div id="agenda" class="tab-content">
+        <p>Contenu de l'agenda.</p>
+      </div>
+      <div id="creer" class="tab-content">
+        <p>Contenu de la page de création.</p>
+      </div>
+    </div>
+  </div>
+  <script src="sidebar.js"></script>
+</body>
+</html>

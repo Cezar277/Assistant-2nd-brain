@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Stylée</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Lien vers le fichier CSS externe -->
+    <!-- Boxicons pour les icônes -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo-details">
+            <div class="logo_name">TATA</div>
+        </div>
+        <ul class="nav-list" id="sidebar-menu">
+            <!-- Catégorie IA -->
+            <li>
+                <a href="#" class="submenu-toggle">
+                    <i class='bx bx-brain'></i>
+                    <span class="links_name">IA</span>
+                    <i class='bx bx-chevron-down'></i>
+                </a>
+                <ul class="submenu" id="ia-submenu">
+                    <!-- Les IA seront ajoutées ici dynamiquement -->
+                </ul>
+            </li>
+            <!-- Catégorie Agenda -->
+            <li>
+                <a href="#" class="submenu-toggle">
+                    <i class='bx bx-calendar'></i>
+                    <span class="links_name">Agenda</span>
+                    <i class='bx bx-chevron-down'></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="#">Événements</a></li>
+                    <li><a href="#">Tâches</a></li>
+                </ul>
+            </li>
+            <!-- Catégorie Todo List -->
+            <li>
+                <a href="#" id="todo-list-link">
+                    <i class='bx bx-task'></i>
+                    <span class="links_name">Todo List</span>
+                </a>
+            </li>
+        </ul>
+        <!-- Ligne de séparation -->
+        <div class="separator"></div>
+        <!-- Bouton "Add IA" -->
+        <div class="add-ia">
+            <a href="#" id="add-ia">
+                <i class='bx bx-plus'></i>
+                <span class="links_name">Add IA</span>
+            </a>
+            <span class="tooltip">Add IA</span>
+        </div>
+        <!-- Bouton "Modifier" -->
+        <div class="modify-ia">
+            <a href="#" id="modify-ia">
+                <i class='bx bx-edit'></i>
+                <span class="links_name">Modifier</span>
+            </a>
+            <span class="tooltip">Modifier</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Conteneur pour la to-do list -->
+        <div id="todo-list-container" style="display: none;">
+            <webview src="todolist.html" style="width: 100%; height: 100%; border: none;"></webview>
+        </div>
+        <!-- Webview pour les autres pages -->
+        <webview id="content-frame"></webview>
+    </div>
+
+    <!-- Modal pour ajouter une IA -->
+    <div id="modal">
+        <div class="modal-content">
+            <h3>Ajouter une IA</h3>
+            <input type="text" id="ai-name" placeholder="Nom de l'IA">
+            <input type="text" id="ai-url" placeholder="URL de l'IA">
+            <div>
+                <button id="submit-ai">Valider</button>
+                <button id="close-modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour modifier/supprimer les IA -->
+    <div id="modify-modal">
+        <div class="modify-modal-content">
+            <h3>Modifier ou supprimer une IA</h3>
+            <ul id="modify-ia-list">
+                <!-- Les IA seront ajoutées ici dynamiquement -->
+            </ul>
+            <button id="close-modify-modal">Fermer</button>
+        </div>
+    </div>
+
+    <script>
+        // Charger les AIs depuis localStorage ou utiliser les paramètres par défaut
+        let availableAIs = JSON.parse(localStorage.getItem('availableAIs'));
+        if (!availableAIs || availableAIs.length === 0) {
+            availableAIs = [
+                { "id": 1, "label": "ChatGPT", "url": "https://chat.openai.com", "available": true, "icon": "bx bx-chat" },
+                { "id": 2, "label": "Copilot", "url": "https://copilot.microsoft.com/", "available": true, "icon": "bx bx-code" },
+                { "id": 3, "label": "MistralAI", "url": "https://chat.mistral.ai/chat", "available": true, "icon": "bx bx-wind" },
+                { "id": 4, "label": "Microsoft word", "url": "https://office.live.com/start/Word.aspx", "available": true, "icon": "bx bx-file" }
+            ];
+            localStorage.setItem('availableAIs', JSON.stringify(availableAIs));
+        }
+
+        // Sauvegarder les AIs dans localStorage
+        const saveAIs = () => {
+            localStorage.setItem('availableAIs', JSON.stringify(availableAIs));
+        };
+
+        // Gestion des sous-menus
+        function setupSubmenus() {
+            const submenuToggles = document.querySelectorAll('.submenu-toggle');
+
+            submenuToggles.forEach(toggle => {
+                toggle.addEventListener('click', (event) => {
+                    event.preventDefault(); // Empêche le comportement par défaut du lien
+                    const submenu = toggle.nextElementSibling; // Récupère le sous-menu associé
+                    if (submenu && submenu.classList.contains('submenu')) {
+                        submenu.classList.toggle('active'); // Affiche/masque le sous-menu
+                    }
+                });
+            });
+        }
+
+        // Afficher les IA dans le submenu
+        function renderAIs() {
+            const iaSubmenu = document.getElementById('ia-submenu');
+            iaSubmenu.innerHTML = '';
+            availableAIs.forEach(ai => {
+                if (ai.available) {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a'); // Utilise un div au lieu d'un lien
+                    a.className = 'ia-link'; // Ajoute une classe pour le style
+                    a.innerHTML = `
+                        <i class='${ai.icon}'></i>
+                        <span class="links_name">${ai.label}</span>
+                    `;
+                    a.addEventListener('click', () => {
+                        const contentFrame = document.getElementById('content-frame');
+                        contentFrame.src = ai.url; // Charge l'URL dans la webview
+                    });
+                    li.appendChild(a);
+                    iaSubmenu.appendChild(li);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderAIs(); // Afficher les IA disponibles
+        });
+
+        // Afficher les IA dans le modal de modification
+        function renderModifyAIs() {
+            const modifyIaList = document.getElementById('modify-ia-list');
+            modifyIaList.innerHTML = '';
+            availableAIs.forEach(ai => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${ai.label}</span>
+                    <button onclick="editAi(${ai.id})">Modifier</button>
+                    <button onclick="deleteAi(${ai.id})">Supprimer</button>
+                `;
+                modifyIaList.appendChild(li);
+            });
+        }
+
+        // Modifier une IA
+        function editAi(id) {
+            const ai = availableAIs.find(ai => ai.id === id);
+            if (ai) {
+                document.getElementById('ai-name').value = ai.label;
+                document.getElementById('ai-url').value = ai.url;
+                document.getElementById('modal').style.display = 'block';
+            }
+        }
+
+        // Supprimer une IA
+        function deleteAi(id) {
+            availableAIs = availableAIs.filter(ai => ai.id !== id);
+            saveAIs();
+            renderAIs();
+            renderModifyAIs();
+        }
+
+        // Initialiser tout au chargement de la page
+        document.addEventListener('DOMContentLoaded', () => {
+            setupSubmenus(); // Configurer les sous-menus
+            renderAIs(); // Afficher les IA disponibles
+
+            const contentFrame = document.getElementById('content-frame');
+            const todoListLink = document.getElementById('todo-list-link');
+            const todoListContainer = document.getElementById('todo-list-container');
+            const modal = document.getElementById('modal');
+            const modifyModal = document.getElementById('modify-modal');
+            const closeModalButton = document.getElementById('close-modal');
+            const closeModifyModalButton = document.getElementById('close-modify-modal');
+            const submitAiButton = document.getElementById('submit-ai');
+            const aiNameInput = document.getElementById('ai-name');
+            const aiUrlInput = document.getElementById('ai-url');
+            const urlParams = new URLSearchParams(window.location.search);
+            const iaId = urlParams.get('ia');
+
+            // Charge l'IA sélectionnée si un paramètre est présent, sinon charge accueil.html
+            if (iaId) {
+                const ai = availableAIs.find(ai => ai.id == iaId);
+                if (ai && ai.available) {
+                    contentFrame.src = ai.url; // Charge l'URL de l'IA
+                } else {
+                    contentFrame.src = 'accueil.html'; // Fallback vers accueil.html
+                }
+            } else {
+                contentFrame.src = 'accueil.html'; // Charge accueil.html par défaut
+            }
+
+            // Afficher la to-do list lorsque l'onglet est cliqué
+            todoListLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                contentFrame.style.display = 'none'; // Masquer le webview
+                todoListContainer.style.display = 'block'; // Afficher la to-do list
+            });
+
+            // Gestion des modals
+            const addIaButton = document.getElementById('add-ia');
+            const modifyIaButton = document.getElementById('modify-ia');
+
+            addIaButton.addEventListener('click', () => {
+                modal.style.display = 'block';
+            });
+
+            modifyIaButton.addEventListener('click', () => {
+                modifyModal.style.display = 'block';
+                renderModifyAIs();
+            });
+
+            closeModalButton.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            closeModifyModalButton.addEventListener('click', () => {
+                modifyModal.style.display = 'none';
+            });
+
+            submitAiButton.addEventListener('click', () => {
+                const name = aiNameInput.value.trim();
+                const url = aiUrlInput.value.trim();
+                if (name && url) {
+                    const newAi = {
+                        id: availableAIs.length + 1,
+                        label: name,
+                        url: url,
+                        available: true,
+                        icon: 'bx bx-link' // Vous pouvez choisir une icône par défaut
+                    };
+                    availableAIs.push(newAi);
+                    saveAIs();
+                    renderAIs();
+                    modal.style.display = 'none';
+                    aiNameInput.value = '';
+                    aiUrlInput.value = '';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

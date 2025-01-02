@@ -1,0 +1,345 @@
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f4f4f4;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 78px;
+  background-color: #11101D;
+  padding: 6px 14px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.sidebar:hover {
+  width: 250px;
+}
+
+/* Logo Section */
+.sidebar .logo-details {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+.sidebar .logo-details .logo_name {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar:hover .logo-details .logo_name {
+  opacity: 1;
+}
+
+/* Navigation List */
+.sidebar .nav-list {
+  margin: 20px;
+  height: calc(100% - 180px);
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.sidebar .nav-list::-webkit-scrollbar {
+  display: none; /* Chrome */
+}
+
+.sidebar .nav-list li {
+  margin: 8px 0;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .nav-list li a {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  background-color: #11101D;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar .nav-list li a:hover {
+  background-color: #f0f0f0;
+}
+
+.sidebar .nav-list li a i {
+  margin-right: 10px;
+  font-size: 20px;
+  color: #6200ea;
+}
+
+.sidebar .nav-list li a:hover i {
+  color: #11101D;
+}
+
+.sidebar .nav-list li a .links_name {
+  font-size: 15px;
+  color: #fff;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar:hover .nav-list li a .links_name {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Tooltip */
+.sidebar .nav-list li .tooltip {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 15px);
+  transform: translateY(-50%);
+  background-color: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar .nav-list li:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar:hover .nav-list li .tooltip {
+  display: none;
+}
+
+/* Add & Modify Buttons */
+.sidebar .add-ia,
+.sidebar .modify-ia {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  padding: 0 14px;
+}
+
+.sidebar .add-ia {
+  bottom: 70px;
+}
+
+.sidebar .modify-ia {
+  bottom: 10px;
+}
+
+.sidebar .add-ia a,
+.sidebar .modify-ia a {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  text-decoration: none;
+  background-color: #11101D;
+  border-radius: 12px;
+  transition: background-color 0.4s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sidebar .add-ia a:hover,
+.sidebar .modify-ia a:hover {
+  background-color: #fff;
+}
+
+.sidebar .add-ia a i,
+.sidebar .modify-ia a i {
+  min-width: 50px;
+  font-size: 22px;
+  color: #fff;
+  text-align: center;
+  transition: color 0.4s ease;
+}
+
+.sidebar .add-ia a:hover i,
+.sidebar .modify-ia a:hover i {
+  color: #11101D;
+}
+
+.sidebar .add-ia a .links_name,
+.sidebar .modify-ia a .links_name {
+  font-size: 15px;
+  color: #11101D;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar:hover .add-ia a .links_name,
+.sidebar:hover .modify-ia a .links_name {
+  opacity: 1;
+}
+
+/* Submenu Styles */
+.sidebar .submenu {
+  display: none;
+  padding-left: 20px;
+}
+
+.sidebar .submenu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar .submenu-toggle i.bx-chevron-down {
+  transition: transform 0.3s ease;
+}
+
+.sidebar .submenu-toggle.active i.bx-chevron-down {
+  transform: rotate(180deg);
+}
+
+.sidebar .submenu.active {
+  display: block;
+}
+
+/* Separator */
+.sidebar .separator {
+  border-top: 1px solid #fff;
+  margin: 10px 0;
+  opacity: 0.2;
+}
+
+/* Main Content Styles */
+.main-content {
+  display: flex;
+  position: relative;
+  left: 78px;
+  width: calc(100% - 78px);
+  height: 100vh;
+  transition: all 0.5s ease;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.sidebar:hover ~ .main-content {
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+webview {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Modal Styles */
+#modal,
+#modify-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.modal-content,
+.modify-modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h3,
+.modify-modal-content h3 {
+  margin-bottom: 10px;
+}
+
+.modal-content input,
+.modify-modal-content ul li {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-content button,
+.modify-modal-content ul li button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-content button#submit-ai {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.modal-content button#close-modal {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.modify-modal-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modify-modal-content ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.modify-modal-content ul li:last-child {
+  border-bottom: none;
+}
+
+.modify-modal-content ul li button.edit {
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modify-modal-content ul li button.edit:hover {
+  background-color: #0056b3;
+}
+
+#content-frame {
+  flex: 1;
+  height: 100%;
+}

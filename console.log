@@ -1,0 +1,4 @@
+const webview = document.getElementById('content-frame');
+if (!webview) {
+    console.error("Webview not found!"); // Add this line
+}
